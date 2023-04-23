@@ -32,7 +32,7 @@ const Button: React.FC<ButtonProps> = ({
         disabled:cursor-not-allowed
         disabled:opacity-70
         ${outline ? "bg-white" : "bg-rose-500"}
-        ${outline ? "border-black" : "bg-rose-500"}
+        ${outline ? "border-neutral-500" : "bg-rose-500"}
         ${outline ? "text-black" : "text-white"}
         ${small ? "py-1" : "py-3"}
         ${small ? "text-sm" : "text-md"}
