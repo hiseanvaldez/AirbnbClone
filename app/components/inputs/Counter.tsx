@@ -61,7 +61,9 @@ const Counter: React.FC<CounterProps> = ({
         >
           <AiOutlineMinus />
         </div>
-        <div className="text-xl font-light text-neutral-600">{value}</div>
+        <div className="flex w-6 justify-center text-xl font-light text-neutral-600">
+          {value}
+        </div>
         <div
           onClick={onIncrement}
           className="

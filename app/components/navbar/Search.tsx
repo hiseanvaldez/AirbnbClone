@@ -1,10 +1,64 @@
 "use client";
 
+import useCountries from "@/app/hooks/useCountries";
+import useSearchModal from "@/app/hooks/useSearchModal";
+import { differenceInDays } from "date-fns";
+import { useSearchParams } from "next/navigation";
+import { useMemo } from "react";
 import { BiSearch } from "react-icons/bi";
 
 const Search = () => {
+  const searchModal = useSearchModal();
+  const params = useSearchParams();
+  const { getByValue } = useCountries();
+
+  const locationValue = params?.get("locationValue");
+  const startDate = params?.get("startDate");
+  const endDate = params?.get("endDate");
+  const guestCount = params?.get("guestCount");
+
+  const locationLabel = useMemo(() => {
+    if (locationValue) {
+      const country = getByValue(locationValue as string);
+      return (
+        <div className="flex flex-row gap-2">
+          <div>{country?.flag}</div>
+          <div>{country?.label}</div>
+        </div>
+      );
+    }
+
+    return "Anywhere";
+  }, [getByValue, locationValue]);
+
+  const durationLabel = useMemo(() => {
+    if (startDate && endDate) {
+      const start = new Date(startDate as string);
+      const end = new Date(endDate as string);
+
+      let diff = differenceInDays(end, start);
+
+      if (diff === 0) {
+        diff = 1;
+      }
+
+      return `${diff} days`;
+    }
+
+    return "Any Week";
+  }, [endDate, startDate]);
+
+  const guestLabel = useMemo(() => {
+    if (guestCount) {
+      return `${guestCount} guests`;
+    }
+
+    return "Add Guests";
+  }, [guestCount]);
+
   return (
     <div
+      onClick={() => searchModal.onOpen()}
       className="
         w-full
         cursor-pointer
@@ -32,7 +86,7 @@ const Search = () => {
             font-semibold
           "
         >
-          Anywhere
+          {locationLabel}
         </div>
         <div
           className="
@@ -46,7 +100,7 @@ const Search = () => {
             sm:block
           "
         >
-          Any Week
+          {durationLabel}
         </div>
         <div
           className="
@@ -60,7 +114,7 @@ const Search = () => {
             text-gray-600
           "
         >
-          <div className="hidden sm:block">Add Guests</div>
+          <div className="hidden sm:block">{guestLabel}</div>
           <div
             className="
               rounded-full

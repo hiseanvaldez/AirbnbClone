@@ -23,6 +23,12 @@ export const enum STEPS {
   PRICE = 5,
 }
 
+export const enum SEARCH_STEPS {
+  LOCATION = 0,
+  DATE = 1,
+  INFO = 2,
+}
+
 export const categories = [
   {
     label: "Beach",
