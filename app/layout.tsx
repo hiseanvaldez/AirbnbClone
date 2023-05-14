@@ -1,4 +1,3 @@
-import { Analytics } from "@vercel/analytics/react";
 import { Nunito } from "next/font/google";
 import getCurrentUser from "./actions/getCurrentUser";
 import ClientOnly from "./components/ClientOnly";
@@ -29,7 +28,7 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body className={font.className}>
-        <Analytics />
+        {/* <Analytics /> */}
         <ClientOnly>
           <ToasterProvider />
           <RegisterModal />
